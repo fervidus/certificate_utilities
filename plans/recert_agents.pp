@@ -1,5 +1,5 @@
 plan certificate_utilities::recert_agents (
-  Optional[Pattern[/\d\d\d\d-\d\d-\d\d/]] $date,
+  Optional[Pattern[/\d\d\d\d-\d\d-\d\d/]] $date = undef,
 ) {
   $ca = puppetdb_query('resources[certname] { type = "Class" and title = "Puppet_enterprise::Profile::Certificate_authority" }')[0]
 
