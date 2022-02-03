@@ -4,7 +4,7 @@
 require 'uri'
 require 'net/http'
 require 'json'
-require 'openssl'
+require 'open3'
 
 require_relative '../../ruby_task_helper/files/task_helper'
 
