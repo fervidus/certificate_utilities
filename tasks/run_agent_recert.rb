@@ -1,9 +1,7 @@
 #!/opt/puppetlabs/puppet/bin/ruby
 # frozen_string_literal: true
 
-require 'uri'
-require 'net/http'
-require 'json'
+require 'puppet'
 require 'open3'
 
 require_relative '../../ruby_task_helper/files/task_helper'
