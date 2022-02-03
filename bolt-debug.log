@@ -1,0 +1,12 @@
+2022-01-21T12:45:04.627649 INFO   [main] [Bolt::Logger] Loaded project from '/Users/bryanbelanger/projects/certificate_utilities'
+2022-01-21T12:45:04.627799 DEBUG  [main] [Bolt::Logger] Loaded configuration from /Users/bryanbelanger/.puppetlabs/etc/bolt/bolt-defaults.yaml
+2022-01-21T12:45:04.734988 DEBUG  [main] [Bolt::Executor] Started with 100 max thread(s)
+2022-01-21T12:45:05.571553 DEBUG  [main] [Bolt::PAL] Loading modules from /opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.20.0/bolt-modules:/Users/bryanbelanger/projects/certificate_utilities/modules:/Users/bryanbelanger/projects/certificate_utilities/.modules:/opt/puppetlabs/bolt/lib/ruby/gems/2.7.0/gems/bolt-3.20.0/modules
+2022-01-21T12:45:05.572445 DEBUG  [main] [Bolt::Inventory] Loaded inventory from /Users/bryanbelanger/projects/certificate_utilities/inventory.yaml
+2022-01-21T12:45:05.579042 DEBUG  [main] [Bolt::Inventory::Inventory] Did not find config for puppet.azcender.com in inventory
+2022-01-21T12:45:05.580560 INFO   [event-publisher] [Bolt::Outputter::Logger] Starting: script files/agent_expiration_within_90_server_only.rb on puppet.azcender.com
+2022-01-21T12:45:05.620039 INFO   [exec-worker-1] [Bolt::Executor] Running script files/agent_expiration_within_90_server_only.rb with '[]' on ["puppet.azcender.com"]
+2022-01-21T12:45:05.621181 DEBUG  [exec-worker-1] [Bolt::Transport::Orch] Creating orchestrator client for {"User-Agent"=>"Bolt/3.20.0"}
+2022-01-21T12:45:05.652297 DEBUG  [exec-worker-1] [Bolt::Transport::Orch] Started plan 
+2022-01-21T12:45:06.883043 INFO   [exec-worker-1] [Bolt::Executor] [{"target":"puppet.azcender.com","action":"script","object":"files/agent_expiration_within_90_server_only.rb","status":"success","value":{"stderr":"","stdout":"puppet.azcender.com\t\texpires 2037-01-15 16:27:20 UTC\nconsole-cert\t\texpires 2037-01-15 16:27:20 UTC\nsecure.azcender.com\t\texpires 2037-01-15 16:27:20 UTC\n","exit_code":0}}]
+2022-01-21T12:45:06.883850 INFO   [event-publisher] [Bolt::Outputter::Logger] Finished: script files/agent_expiration_within_90_server_only.rb with 0 failures in 1.3 sec

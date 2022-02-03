@@ -1,0 +1,5 @@
+---
+name: certificate_utilities
+modules:
+  - puppetlabs-ca_extend
+  - puppetlabs-stdlib
