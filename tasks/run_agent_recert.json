@@ -1,0 +1,13 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Runs recert on Puppet ca for an agent",
+  "files": ["ruby_task_helper/files/task_helper.rb"],
+  "input_method": "stdin",
+  "parameters": {
+    "agent": {
+      "description": "Agent to recert",
+      "type": "String[1]"
+    }
+  }
+}
