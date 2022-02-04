@@ -3,7 +3,6 @@
 
 require 'puppet'
 require 'open3'
-require 'json'
 
 require_relative '../../ruby_task_helper/files/task_helper'
 
@@ -13,14 +12,13 @@ class RunAgentRecert < TaskHelper
     cmd = ''
 
     if(kwargs[:date])
-      cmd = 'puppet task run ca_extend::check_agent_expiry -n $(puppet config print certname)'
+      cmd = "puppet task run ca_extend::check_agent_expiry"
     else
-      cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]}  -n $(puppet config print certname)"
+      cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]}"
     end
 
     stdout, stderr, status = Open3.capture3(cmd)
     raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
-    
     stdout.strip.to_json
 
     # cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{kwargs[:agent]}"
