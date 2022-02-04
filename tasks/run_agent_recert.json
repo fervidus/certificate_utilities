@@ -11,7 +11,7 @@
     },
     "date": {
       "description": "Date to check for expiry in format YYYY-MM-DD",
-      "type": "Pattern[/\\d\\d\\d\\d-\\d\\d-\\d\\d]"
+      "type": "Optional[Pattern[/\\d\\d\\d\\d-\\d\\d-\\d\\d]]"
     }
   }
 }
