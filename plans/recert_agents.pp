@@ -17,18 +17,21 @@ plan certificate_utilities::recert_agents (
 
   $expiring_agents = $expiring_agents_results.first['expiring']
 
+  $failed_agents = []
+
   # Go through each agent one at a time
   $expiring_agents.each | String $agent_file | {
     if $agent_file =~ /([^\/]+).pem/ {
       # $next_command = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=${1}"
-      $next_command = run_task('certificate_utilities::run_agent_recert', $ca_target, 'agent' => $1)
+      $next_command = run_task('certificate_utilities::run_agent_recert', $ca_target, 'agent' => $1, '_catch_errors' => true)
 
-      # $recert_results = run_command($next_command, $ca_target, '_catch_errors' => true)
-
-      # # Failure print notify
-      # if($recert_results.first.status == 'failure') {
-      #   out::message("Agent ${1} failed")
-      # }
+      # Failure print notify
+      if($recert_results.first.status == 'failure') {
+        $failed_agents << "Agent ${1} failed"
+      }
     }
   }
+
+  # Return failures
+  return $failed_agents
 }
