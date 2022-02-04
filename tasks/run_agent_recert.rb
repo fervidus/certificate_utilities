@@ -24,9 +24,9 @@ class RunAgentRecert < TaskHelper
     end
 
     stdout, stderr, status = Open3.capture3(cmd)
-    raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
+    # raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
 
-    output['response'] = stdout.strip
+    output['response'] = { stdout: stdout.strip, stderr: stderr.strip }
 
     output.to_json
 
