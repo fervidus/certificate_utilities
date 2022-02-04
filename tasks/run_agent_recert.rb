@@ -16,6 +16,7 @@ class RunAgentRecert < TaskHelper
     end
 
     stdout, stderr, status = Open3.capture3(cmd)
+    raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
     stdout.strip.to_json
 
     # cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{kwargs[:agent]}"
