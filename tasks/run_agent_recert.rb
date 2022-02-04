@@ -12,11 +12,11 @@ class RunAgentRecert < TaskHelper
   def task(name: nil, **kwargs)
     cmd = 'puppet access show'
 
-    # if(kwargs[:date])
-    #   cmd = 'puppet task run ca_extend::check_agent_expiry -n $(puppet config print certname)'
-    # else
-    #   cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]}  -n $(puppet config print certname)"
-    # end
+    if(kwargs[:date])
+      cmd = 'puppet task run ca_extend::check_agent_expiry -n $(puppet config print certname)'
+    else
+      cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]}  -n $(puppet config print certname)"
+    end
 
     stdout, stderr, status = Open3.capture3(cmd)
     raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
@@ -30,16 +30,18 @@ class RunAgentRecert < TaskHelper
     successful_agents = []  # Agents that successfully updated
 
     # Update all expiring certs
-    # expiring_certs.each { | cert |
-    #   recert_cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{kwargs[:agent]}"
-    #   stdout, stderr, status = Open3.capture3(recert_cmd)
+    expiring_certs.each { | cert |
+      match = cert.match(%r{([^\/]+).pem})
+
+      recert_cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{match[1]}"
+      stdout, stderr, status = Open3.capture3(recert_cmd)
   
-    #   if status != 0
-    #     failed_agents <<  kwargs[:agent]
-    #   else
-    #     successful_agents <<  kwargs[:agent]
-    #   end
-    # }
+      if status != 0
+        failed_agents <<  kwargs[:agent]
+      else
+        successful_agents <<  kwargs[:agent]
+      end
+    }
 
     {
       'failed' => failed_agents,
