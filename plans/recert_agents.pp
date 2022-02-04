@@ -26,7 +26,11 @@ plan certificate_utilities::recert_agents (
   #   if $agent_file =~ /([^\/]+).pem/ {
       # $next_command = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=${1}"
       # $next_command = run_task('certificate_utilities::run_agent_recert', $ca_target, 'agent' => $1, '_catch_errors' => true)
-      $next_command = run_plan('peadm::modify_certificate', 'tester.azcender.com', 'primary_host' => 'puppet.azcender.com', 'force_regenerate' => true)
+      $next_command = run_plan( 'peadm::subplans::modify_certificate', 'tester.azcender.com',
+        'primary_host'     => 'puppet.azcender.com',
+        'primary_certname' => 'puppet.azcender.com',
+        'force_regenerate' => true
+      )
 
       # Failure print notify
       # if($recert_results.first.status == 'failure') {
