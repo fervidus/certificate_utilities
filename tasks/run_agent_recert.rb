@@ -10,9 +10,9 @@ require_relative '../../ruby_task_helper/files/task_helper'
 class RunAgentRecert < TaskHelper
   def task(name: nil, **kwargs)
     if(kwargs[:date])
-      cmd = "puppet task run ca_extend::check_agent_expiry -n puppet.azcender.com"
+      cmd = "puppet task run ca_extend::check_agent_expiry -n localhost"
     else
-      cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]} -n puppet.azcender.com"
+      cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]} -n localhost"
     end
 
     stdout, stderr, status = Open3.capture3(cmd)
