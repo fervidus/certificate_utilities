@@ -17,10 +17,6 @@ plan certificate_utilities::recert_agents (
 
   $expiring_agents = $expiring_agents_results.first['expiring']
 
-  # out::message($expiring_agents)
-
-  $failed_agents = []
-
   # Go through each agent one at a time
   $expiring_agents.each | String $agent_file | {
     if $agent_file =~ /([^\/]+).pem/ {
@@ -30,11 +26,6 @@ plan certificate_utilities::recert_agents (
         'master'           => 'puppet.azcender.com',
         'agent'            => 'tester.azcender.com'
       )
-
-      # Failure print notify
-      if($next_command.first.status == 'failure') {
-        $failed_agents << "Agent ${1} failed"
-      }
     }
   }
 
