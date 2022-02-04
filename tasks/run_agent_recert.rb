@@ -10,7 +10,7 @@ require_relative '../../ruby_task_helper/files/task_helper'
 # documentation comment
 class RunAgentRecert < TaskHelper
   def task(name: nil, **kwargs)
-    cmd = 'puppet config access show'
+    cmd = 'puppet access show'
 
     # if(kwargs[:date])
     #   cmd = 'puppet task run ca_extend::check_agent_expiry -n $(puppet config print certname)'
