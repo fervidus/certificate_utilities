@@ -31,8 +31,8 @@ class RunAgentRecert < TaskHelper
 
     # Update all expiring certs
     expiring_certs.each { | cert |
-      cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{kwargs[:agent]}"
-      stdout, stderr, status = Open3.capture3(cmd)
+      recert_cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{kwargs[:agent]}"
+      stdout, stderr, status = Open3.capture3(recert_cmd)
   
       if status != 0
         failed_agents <<  kwargs[:agent]
