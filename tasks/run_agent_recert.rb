@@ -3,6 +3,7 @@
 
 require 'puppet'
 require 'open3'
+require 'json'
 
 require_relative '../../ruby_task_helper/files/task_helper'
 
@@ -19,13 +20,31 @@ class RunAgentRecert < TaskHelper
 
     stdout, stderr, status = Open3.capture3(cmd)
     raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
-    stdout.strip.to_json
+    
+    agent_cert_results = JSON.parse(stdout.strip.to_json)
 
-    # cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{kwargs[:agent]}"
-    # stdout, stderr, status = Open3.capture3(cmd)
+    expiring_certs = agent_cert_results['expiring']
 
-    # raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
-    # stdout.strip.to_json
+    
+    failed_agents = []      # Agents that failed to update
+    successful_agents = []  # Agents that successfully updated
+
+    # Update all expiring certs
+    expiring_certs.each { | cert |
+      cmd = "HOME=/root && export HOME && puppet infrastructure run regenerate_agent_certificate agent=#{kwargs[:agent]}"
+      stdout, stderr, status = Open3.capture3(cmd)
+  
+      if status != 0
+        failed_agents <<  kwargs[:agent]
+      else
+        successful_agents <<  kwargs[:agent]
+      end
+    }
+
+    {
+      'failed' => failed_agents,
+      'successul' => successful_agents
+    }.to_json
   end
 end
 
