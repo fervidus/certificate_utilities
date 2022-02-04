@@ -8,6 +8,10 @@
     "agent": {
       "description": "Agent to recert",
       "type": "String[1]"
+    },
+    "date": {
+      "description": "Date to check for expiry in format YYYY-MM-DD",
+      "type": "Pattern[/\\d\\d\\d\\d-\\d\\d-\\d\\d]"
     }
   }
 }
