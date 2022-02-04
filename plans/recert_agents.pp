@@ -40,5 +40,5 @@ plan certificate_utilities::recert_agents (
 
   # Return failures
   # return $failed_agents
-  out::message($next_command.first.message)
+  # out::message($next_command.first.message)
 }
