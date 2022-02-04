@@ -10,7 +10,7 @@ require_relative '../../ruby_task_helper/files/task_helper'
 # documentation comment
 class RunAgentRecert < TaskHelper
   def task(name: nil, **kwargs)
-    cmd = 'puppet access show'
+    cmd = ''
 
     if(kwargs[:date])
       cmd = 'puppet task run ca_extend::check_agent_expiry -n $(puppet config print certname)'
@@ -18,9 +18,9 @@ class RunAgentRecert < TaskHelper
       cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]}  -n $(puppet config print certname)"
     end
 
-    stdout, stderr, status = Open3.capture3(cmd)
-    raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
-    stdout.strip.to_json
+    # stdout, stderr, status = Open3.capture3(cmd)
+    # raise Puppet::Error, _("stderr: '#{stderr}'") if status != 0
+    cmd.strip.to_json
     
     # agent_cert_results = JSON.parse(stdout.strip.to_json)
 
