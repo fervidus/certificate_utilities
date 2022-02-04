@@ -12,9 +12,9 @@ class RunAgentRecert < TaskHelper
     cmd = ''
 
     if(kwargs[:date])
-      cmd = "puppet task run ca_extend::check_agent_expiry"
+      cmd = 'puppet task run ca_extend::check_agent_expiry -n $(puppet config print certname)'
     else
-      cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]}"
+      cmd = "puppet task run ca_extend::check_agent_expiry date=#{kwargs[:date]}  -n $(puppet config print certname)"
     end
 
     stdout, stderr, status = Open3.capture3(cmd)
