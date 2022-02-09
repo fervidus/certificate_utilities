@@ -16,6 +16,8 @@ plan certificate_utilities::find_at_risk_certificates (
   $recert_list = $expiring_agents_results.map | Result $result | {
     $agent = $result.message
 
+    out::message("Result: ${result}")
+
     if $agent {
       $agent
     }
