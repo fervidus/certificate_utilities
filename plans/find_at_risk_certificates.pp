@@ -12,9 +12,6 @@ plan certificate_utilities::find_at_risk_certificates (
     'max_days_to_expiration' => $max_days_to_expiration
   )
 
-  $expiring_agents = $expiring_agents_results.map | Result $result | {
-  }
-
   # Go through each agent one at a time
   $recert_list = $expiring_agents_results.map | Result $result | {
     $agent = $result.message
