@@ -3,5 +3,10 @@
   "supports_noop": false,
   "description": "A short description of this task",
   "parameters": {
+    "max_days_to_expiration": {
+      "description": "Maximum number of days away a cert can expire.",
+      "type": "Optional[Integer]",
+      "default": 90
+    }
   }
 }
