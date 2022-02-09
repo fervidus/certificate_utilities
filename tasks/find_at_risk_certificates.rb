@@ -32,11 +32,8 @@ class GetCertificate < TaskHelper
     #   `puppet resource service puppet ensure=running`
     # end
 
-    if days_from_expiration < now
-      puts cert_name
-    else
-      puts 'nil'
-    end
+    
+    puts cert_name if days_from_expiration < now
   end
 end
 
