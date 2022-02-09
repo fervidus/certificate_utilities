@@ -4,7 +4,7 @@
 require 'uri'
 require 'net/http'
 require 'json'
-require 'datetime'
+require 'date'
 
 require_relative '../../ruby_task_helper/files/task_helper'
 
