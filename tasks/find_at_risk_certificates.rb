@@ -11,12 +11,12 @@ require_relative '../../ruby_task_helper/files/task_helper'
 # documentation comment
 class GetCertificate < TaskHelper
   def task(name: nil, **kwargs)
-    certname = `/opt/puppetlabs/puppet/bin/puppet config print certname`
+    cert_name = `/opt/puppetlabs/puppet/bin/puppet config print certname`
 
     # Remove problematic whitespace
-    certname.strip!
+    cert_name.strip!
 
-    cert_file = File.new("/etc/puppetlabs/puppet/ssl/certs/#{certname}.pem")
+    cert_file = File.new("/etc/puppetlabs/puppet/ssl/certs/#{cert_name}.pem")
 
     cert = OpenSSL::X509::Certificate.new(cert_file)
 
@@ -33,7 +33,7 @@ class GetCertificate < TaskHelper
     # end
 
     if days_from_expiration < now
-      puts certname
+      puts cert_name
     else
       puts 'nil'
     end
