@@ -19,12 +19,12 @@ plan certificate_utilities::find_at_risk_certificates (
   $recert_list = $expiring_agents_results.map | Result $result | {
     $agent = $result.message
 
-    out::message("Agent ${agent}")
+    out::message("Agent ${result}")
 
     if $agent =~ /^.+\.com$/ {
       $agent
     }
   }
 
-  return $recert_list
+  return join($recert_list, ',')
 }
