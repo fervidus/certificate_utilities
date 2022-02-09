@@ -2,6 +2,8 @@
   "puppet_task_version": 1,
   "supports_noop": false,
   "description": "A short description of this task",
+  "files": ["ruby_task_helper/files/task_helper.rb"],
+  "input_method": "stdin",
   "parameters": {
     "max_days_to_expiration": {
       "description": "Maximum number of days away a cert can expire.",
