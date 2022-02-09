@@ -35,7 +35,7 @@ class GetCertificate < TaskHelper
     if days_from_expiration < now
       puts certname
     else
-      'nil'
+      puts 'nil'
     end
   end
 end
