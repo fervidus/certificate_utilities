@@ -21,5 +21,5 @@ plan certificate_utilities::find_at_risk_certificates (
     }
   }
 
-  return join($recert_list, ',')
+  out::message($recert_list, ',')
 }
