@@ -24,7 +24,7 @@ class GetCertificate < TaskHelper
     if days_from_expiration < now
       puts File.basename(files[0], '.pem')
     else
-      puts ''
+      puts 'XX'
     end
   end
 end
