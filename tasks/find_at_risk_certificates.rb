@@ -21,8 +21,11 @@ class GetCertificate < TaskHelper
     days_from_expiration = expire - kwargs[:max_days_to_expiration]
 
     now = DateTime.now
-    
-    puts File.basename(files[0], '.pem') if days_from_expiration < now
+    if days_from_expiration < now
+      puts File.basename(files[0], '.pem')
+    else
+      puts ''
+    end
   end
 end
 
