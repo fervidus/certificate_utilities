@@ -12,14 +12,9 @@ require_relative '../../ruby_task_helper/files/task_helper'
 # documentation comment
 class GetCertificate < TaskHelper
   def task(name: nil, **kwargs)
-    cert_name = `/opt/puppetlabs/puppet/bin/puppet config print certname`
+    files = Dir['/etc/puppetlabs/puppet/ssl/certs/*.*.pem']
 
-    # Remove problematic whitespace
-    cert_name.strip!
-
-    cert_file = File.new("/etc/puppetlabs/puppet/ssl/certs/#{cert_name}.pem")
-
-    cert = OpenSSL::X509::Certificate.new(cert_file)
+    cert = OpenSSL::X509::Certificate.new(File.read(files[0]))
 
     expire = DateTime.parse(cert.not_after.to_s)
 
@@ -27,7 +22,7 @@ class GetCertificate < TaskHelper
 
     now = DateTime.now
     
-    puts cert_name if days_from_expiration < now
+    puts File.basename(files[0], '.pem') if days_from_expiration < now
   end
 end
 
