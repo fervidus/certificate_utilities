@@ -12,25 +12,27 @@ require_relative '../../ruby_task_helper/files/task_helper'
 # documentation comment
 class GetCertificate < TaskHelper
   def task(name: nil, **kwargs)
-    cmd = '/opt/puppetlabs/puppet/bin/puppet config print certname'
+    # cmd = '/opt/puppetlabs/puppet/bin/puppet config print certname'
 
-    stdout, stderr, status = Open3.capture3(*cmd)
+    # stdout, stderr, status = Open3.capture3(*cmd)
 
-    raise Puppet::Error, _("stderr: #{stderr}'") if status != 0
+    # raise Puppet::Error, _("stderr: #{stderr}'") if status != 0
 
-    cert_name = stdout.strip
+    # cert_name = stdout.strip
 
-    cert_file = File.new("/etc/puppetlabs/puppet/ssl/certs/#{cert_name}.pem")
+    # cert_file = File.new("/etc/puppetlabs/puppet/ssl/certs/#{cert_name}.pem")
 
-    cert = OpenSSL::X509::Certificate.new(cert_file)
+    # cert = OpenSSL::X509::Certificate.new(cert_file)
 
-    expire = DateTime.parse(cert.not_after.to_s)
+    # expire = DateTime.parse(cert.not_after.to_s)
 
-    days_from_expiration = expire - kwargs[:max_days_to_expiration]
+    # days_from_expiration = expire - kwargs[:max_days_to_expiration]
 
-    now = DateTime.now
+    # now = DateTime.now
     
-    puts cert_name if days_from_expiration < now
+    # puts cert_name if days_from_expiration < now
+
+    puts "Name #{name}\tKwargs: #{kwargs}"
   end
 end
 
