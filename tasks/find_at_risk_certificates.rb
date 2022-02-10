@@ -5,16 +5,20 @@ require 'uri'
 require 'net/http'
 require 'json'
 require 'date'
+require 'open3'
 
 require_relative '../../ruby_task_helper/files/task_helper'
 
 # documentation comment
 class GetCertificate < TaskHelper
   def task(name: nil, **kwargs)
-    cert_name = `/opt/puppetlabs/puppet/bin/puppet config print certname`
+    cmd = '/opt/puppetlabs/puppet/bin/puppet config print certname'
 
-    # Remove problematic whitespace
-    cert_name.strip!
+    stdout, stderr, status = Open3.capture3(*cmd)
+
+    raise Puppet::Error, _("stderr: #{stderr}'") if status != 0
+
+    cert_name = stdout.strip
 
     cert_file = File.new("/etc/puppetlabs/puppet/ssl/certs/#{cert_name}.pem")
 
@@ -25,13 +29,6 @@ class GetCertificate < TaskHelper
     days_from_expiration = expire - kwargs[:max_days_to_expiration]
 
     now = DateTime.now
-
-    # if ninety_days_from_expiration < now
-    #   `puppet resource service puppet ensure=stopped`
-    #   `rm -rf /etc/puppetlabs/puppet/ssl`
-    #   `puppet resource service puppet ensure=running`
-    # end
-
     
     puts cert_name if days_from_expiration < now
   end
